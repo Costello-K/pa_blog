@@ -1,6 +1,7 @@
 # Created by https://www.toptal.com/developers/gitignore/api/windows,python,pycharm,venv
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,python,pycharm,venv
 /idea
+/.idea
 .idea
 ### PyCharm ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider
@@ -118,6 +119,9 @@ fabric.properties
 ### Python ###
 # Byte-compiled / optimized / DLL files
 __pycache__/
+*.pyc
+*.pyo
+
 *.py[cod]
 *$py.class
 
@@ -238,6 +242,9 @@ celerybeat.pid
 *.sage.py
 
 # Environments
+env
+**/.env
+venv
 .env
 .venv
 env/
@@ -321,3 +328,22 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,python,pycharm,venv
+
+
+#node
+node_modules/
+
+
+### react ###
+.DS_*
+logs
+**/*.backup.*
+**/*.back.*
+
+bower_components
+
+*.sublime*
+
+psd
+thumb
+sketch
