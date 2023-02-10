@@ -28,10 +28,9 @@ if os.path.exists(dotenv_path):
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(int(os.environ.get('DEBUG', default=1)))
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 
 # Application definition
 
@@ -89,12 +88,12 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
-        'USER': os.environ.get('PSQL_USER'),
-        'PASSWORD': os.environ.get('PSQL_PASSWORD'),
-        'HOST': os.environ.get('PSQL_HOST'),
-        'PORT': 5432,
+        'ENGINE': os.environ.get('PSQL_ENGINE', "django.db.backends.sqlite3"),
+        'NAME': os.environ.get('PSQL_NAME', os.path.join(BASE_DIR, 'db.sqlite3')),
+        'USER': os.environ.get('PSQL_USER', 'user'),
+        'PASSWORD': os.environ.get('PSQL_PASSWORD', 'password'),
+        'HOST': os.environ.get('PSQL_HOST', 'localhost'),
+        'PORT': os.environ.get('PSQL_PORT', '5432'),
     }
 }
 
@@ -159,7 +158,12 @@ REST_FRAMEWORK = {
     ],
 }
 
-CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:3000",
+    "http://localhost:4001",
+    "http://127.0.0.1:8000"
+]
 
 SIMPLE_JWT = {
    'AUTH_HEADER_TYPES': ('JWT', ),

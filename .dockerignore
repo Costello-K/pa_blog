@@ -1,5 +1,7 @@
+env/
 **/node_modules
 **/build
+**/venv
 **/.dockerignore
 .dockerignore
 **/Dockerfile
