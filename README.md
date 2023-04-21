@@ -4,8 +4,8 @@
 Инструменты разработки
 Стек:
 
-Python >= 3.11
-Django == 3.2.4
+Python >= 3.10
+Django == 4.1.5
 postgres
 Разработка
 1) Docker

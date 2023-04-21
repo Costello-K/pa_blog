@@ -18,7 +18,8 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./backend:/blog/backend
-    command: gunicorn backend.wsgi:application --bind 0.0.0.0:8000
+    command: gunicorn --bind 0.0.0.0:8000 backend.wsgi:application --log-file -
+#    command: gunicorn backend.wsgi --log-file -
     ports:
       - 8000:8000
     depends_on:

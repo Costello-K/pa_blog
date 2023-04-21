@@ -3,14 +3,13 @@ import uuid
 
 
 class FilePath:
-    def __init__(self, file_path: str = ''):
-        self.file_path = file_path
-
-    """Creates a unique name for a file"""
-    @staticmethod
-    def _generate_file_name(file_name: str) -> str:
-        ext = file_name.strip().split('.')[-1]
-        return f'{uuid.uuid4()}.{ext}'
-
-    def get_file_path(self, instance, file_name: str) -> str:
-        return os.path.join(f'{self.file_path}', self._generate_file_name(file_name))
+    """Generate file path"""
+    def get_path_with_unique_filename(self, file_name: str, file_path: str) -> str:
+        """
+        Method to generate unique file path and name using UUID
+            :param file_name: name of the file
+            :param file_path: path where file should be saved
+            :return: file path and unique file name
+        """
+        ext = file_name.strip().split('.')[-1]  # get input file extension
+        return os.path.join(f'{file_path}', f'{uuid.uuid4()}.{ext}')
