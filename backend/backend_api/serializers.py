@@ -115,7 +115,7 @@ class UserProfileSerializer(UserProfileListSerializer):
             request = self.context.get('request')
             if request.user and request.user.is_authenticated:
                 return user.profile.followers.filter(pk=request.user.id).exists()
-        return False
+        return None
 
 
 class MyProfileSerializer(UserProfileSerializer):
@@ -170,6 +170,8 @@ class Meta(UserProfileSerializer.Meta):
 class ReviewSerializer(serializers.ModelSerializer):
     """Serializer for post comments"""
     author = serializers.PrimaryKeyRelatedField(read_only=True)
+    likes = serializers.IntegerField(source='likes.count', read_only=True)
+    dislikes = serializers.IntegerField(source='dislikes.count', read_only=True)
 
     class Meta:
         model = Review
@@ -255,13 +257,13 @@ class PostCreateSerializer(serializers.ModelSerializer):
             limitImage = settings.POST_MAX_NUMBER_IMAGES - number_existing_photos
 
         if len(images_data) > limitImage:
-            raise ValidationError("Maximum 8 images allowed")
+            raise ValueError("Maximum 8 images allowed")
 
         # check the maximum file size
         for image_data in images_data:
             image = image_data.get('image')
             if image.size > (settings.POST_MAX_SIZE_IMAGES_MB * 1024 * 1024):
-                raise ValidationError("Maximum image size allowed is 5MB")
+                raise ValueError("Maximum image size allowed is 5MB")
         return images_data
 
     def create(self, validated_data):

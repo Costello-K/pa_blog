@@ -32,10 +32,10 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(int(os.environ.get('DEBUG', default=1)))
 
-# The first host in the list must be the address of the frontend
-# for the DJOSER to work correctly, NOT localhost!!!
-# ALLOWED_HOSTS = ['127.0.0.1']
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
+
+# Domain that is added to emails
+FRONTEND_DOMAIN = os.environ.get("FRONTEND_HOST_PORT")
 
 # Application definition
 
@@ -96,7 +96,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': os.environ.get('PSQL_ENGINE', "django.db.backends.sqlite3"),
+        'ENGINE': os.environ.get('PSQL_ENGINE', 'django.db.backends.sqlite3'),
         'NAME': os.environ.get('PSQL_NAME', os.path.join(BASE_DIR, 'db.sqlite3')),
         'USER': os.environ.get('PSQL_USER', 'user'),
         'PASSWORD': os.environ.get('PSQL_PASSWORD', 'password'),

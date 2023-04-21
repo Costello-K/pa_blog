@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { removeUserId, setUserId } from '../../store/authSlice';
+import { removeUserId } from '../../store/authSlice';
 import axios from "axios";
 import { BASE_URL } from "../../constants";
 
@@ -58,7 +58,7 @@ function Header() {
       <MainContainer>
         <nav className="navbar navbar-expand-lg bg-body-tertiary" style={{width: '100%'}}>
           <div className="container-fluid">
-            <a className="navbar-brand">BLOG</a>
+            <a href='#' className="navbar-brand">BLOG</a>
             <div style={{display: 'flex'}}>
               <ul className="navbar-nav" style={{display: 'flex', flexDirection: 'row'}}>
                 <li className="nav-item"><NavLinkWrapper className="nav-link active" aria-current="page" to="/">Home</NavLinkWrapper></li>

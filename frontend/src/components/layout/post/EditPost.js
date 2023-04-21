@@ -154,20 +154,19 @@ function EditPost() {
       };
     });
 
-    listDelImages.forEach(id => {
-      // delete image
-      axios.delete(`${BASE_URL}/v1/posts/images/delete/${id}/`)
-      .then(res => res)
-      .catch(err => console.error(err));
-    });
-
-    // edit post
-    axios.put(`${BASE_URL}/v1/posts/edit/${id}/`, data, {
-        headers: {'Content-Type': 'multipart/form-data'}
-      })
-      .then(res => {
-        // redirect to modified post
-        navigate(`/posts/${id}/${slug}/`)
+    // array of promises to remove images
+    const deleteImagePromises = listDelImages.map(id => axios.delete(`${BASE_URL}/v1/posts/images/delete/${id}/`));
+    Promise.all(deleteImagePromises)
+      .then(responses => {
+        // edit post
+        axios.put(`${BASE_URL}/v1/posts/edit/${id}/`, data, {
+          headers: {'Content-Type': 'multipart/form-data'}
+        })
+        .then(res => {
+          // redirect to modified post
+          navigate(`/posts/${id}/${slug}/`)
+        })
+        .catch(err => console.error(err));
       })
       .catch(err => console.error(err));
   };

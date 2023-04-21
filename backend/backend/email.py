@@ -11,7 +11,7 @@ class ActivationEmail(email.ActivationEmail):
     template_name = 'account_email_activation.html'
 
     def get_context_data(self):
-        frontend_site_name = django_settings.ALLOWED_HOSTS[0]
+        frontend_site_name = django_settings.FRONTEND_DOMAIN
         # ActivationEmail can be deleted
         context = super().get_context_data()
 
@@ -29,7 +29,7 @@ class PasswordResetEmail(email.PasswordResetEmail):
     template_name = 'account_password_reset.html'
 
     def get_context_data(self):
-        frontend_site_name = django_settings.ALLOWED_HOSTS[0]
+        frontend_site_name = django_settings.FRONTEND_DOMAIN
         # PasswordResetEmail can be deleted
         context = super().get_context_data()
 

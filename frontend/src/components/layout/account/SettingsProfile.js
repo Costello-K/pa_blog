@@ -9,7 +9,6 @@ import styled from 'styled-components';
 import { BASE_URL } from '../../../constants';
 import Avatar from '../image/Avatar';
 import { removeUserId } from '../../../store/authSlice';
-import {retry} from "@reduxjs/toolkit/query";
 
 const UserCard = styled.div`
   width: 100%;

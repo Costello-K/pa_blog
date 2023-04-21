@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 
@@ -13,7 +13,7 @@ function ConfirmActivationAccount() {
 		token: token,
 	};
 
-  React.useEffect(() => {
+  useEffect(() => {
 		// send request to activate your account
 		axios.post(`${BASE_URL}/auth/users/activation/`, formData,{
         headers: { 'Content-Type': 'application/json'}

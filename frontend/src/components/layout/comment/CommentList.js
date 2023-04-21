@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Comment from './Comment';
 import { BASE_URL } from '../../../constants';
 import CommentForm from './CommentForm';
-import { setPostId, addComments, setComments, setCurrentPage, setTotalPages, removeComments } from '../../../store/postCommentSlice';
+import { addComments, setComments, setCurrentPage, setTotalPages, removeComments } from '../../../store/postCommentSlice';
 
 function CommentList() {
 	const postId = useSelector(state => state.postComments.postId);

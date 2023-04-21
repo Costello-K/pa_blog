@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import axios from "axios";
 import { Button, Card } from 'react-bootstrap';
 import styled from 'styled-components';
@@ -46,7 +46,6 @@ function UserAccount() {
   const { avatar, nickname, name, surname, followers, subscribers, subscribe, date_of_birth } = user;
   const userName = name || surname ? `${name} ${surname}` : nickname;
   const age = new Date().getFullYear() - new Date(date_of_birth).getFullYear();
-  const navigate = useNavigate();
 
   const changeSubscribe = id => {
     // send a request to subscribe or unsubscribe from a user
@@ -73,7 +72,7 @@ function UserAccount() {
             <Card.Text>Followers: {followers}</Card.Text>
             <Card.Text>Subscribers: {subscribers}</Card.Text>
           </div>
-          { subscribe !== null &&
+          {subscribe !== null &&
             <ButtonContainer>
               <ButtonEl variant='light' status={subscribe} onClick={() => changeSubscribe(id)}>{subscribe ? 'Unsubscribe' : 'Subscribe'}</ButtonEl>
             </ButtonContainer>
