@@ -98,7 +98,7 @@ class MyFollowerListAPIView(generics.ListAPIView):
         return get_object_or_404(Profile, user=self.request.user).followers.all()
 
 
-class MySubscriberListAPIView(MyFollowerListAPIView):
+class MySubscriptionsListAPIView(MyFollowerListAPIView):
     """Show list of subscriptions"""
     def get_queryset(self):
         return User.objects.filter(profile__followers=self.request.user)
@@ -188,7 +188,7 @@ class UserPostListAPIView(generics.ListAPIView):
     search_fields = ['title', 'tags__name']
 
     def get_queryset(self):
-        return Post.objects.filter(author_id=self.kwargs.get('pk'))
+        return Post.objects.filter(author_id=self.kwargs.get('pk'), status=PUBLISHED)
 
 
 class TagPostListAPIView(generics.ListAPIView):

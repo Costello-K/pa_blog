@@ -14,12 +14,11 @@ class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profile')
     name = models.CharField(_('name'), max_length=30, blank=True)
     surname = models.CharField(_('surname'), max_length=30, blank=True)
-    nickname = models.CharField('nickname', max_length=100, blank=True, unique=True)
+    nickname = models.CharField('nickname', max_length=100, unique=True)
     date_of_birth = models.DateField(_('date of birth'), blank=True, null=True)
     avatar = models.ImageField(
         _('avatar'),
         upload_to=partial(FilePath.get_path_with_unique_filename, file_path='images/profile/avatar'),
-        null=True,
         blank=True,
     )
     followers = models.ManyToManyField(User, related_name='follow_user')

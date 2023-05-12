@@ -34,5 +34,5 @@ class CustomUserAdmin(UserAdmin):
         """
         super().save_model(request, obj, form, change)
 
-        if not obj.is_superuser:
+        if not obj.is_superuser and not change:
             create_profile(obj)

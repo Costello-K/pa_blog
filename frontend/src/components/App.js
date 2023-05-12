@@ -11,7 +11,7 @@ import MyAccount from "./layout/account/MyAccount";
 import HomePage from "./layout/HomePage";
 import EditPost from "./layout/post/EditPost";
 import FollowerList from "./layout/follower/FollowerList";
-import SubscriberList from "./layout/subscriber/SubscriberList";
+import SubscriptionsList from "./layout/subscriber/SubscriptionsList";
 import PostList from "./layout/post/PostList";
 import TagPostList from "./layout/post/TagPostList";
 import PostDetails from "./layout/post/PostDetails";
@@ -43,7 +43,7 @@ function App() {
           <Route path='/' element={<HomePage />} />
           <Route path='/posts' element={<PostList />} />
           <Route path='/followers' element={<FollowerList />} />
-          <Route path='/subscribers' element={<SubscriberList />} />
+          <Route path='/subscriptions' element={<SubscriptionsList />} />
           <Route path='/posts/edit/:id/:slug' element={<EditPost />} />
           <Route path='/posts/:id/:slug' element={<PostDetails />} />
           <Route path='/tags/:slug' element={<TagPostList />} />

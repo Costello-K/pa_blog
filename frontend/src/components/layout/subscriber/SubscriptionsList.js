@@ -4,9 +4,9 @@ import { ListGroup, Pagination } from 'react-bootstrap';
 import styled from 'styled-components';
 
 import { BASE_URL } from '../../../constants';
-import SubscriberCard from './SubscriberCard';
+import SubscriptionCard from './SubscriptionCard';
 
-const SubscribListContainer = styled.div`
+const SubscriptionsListContainer = styled.div`
   margin: 50px auto;
 `;
 
@@ -24,7 +24,7 @@ const PaginationContainer = styled.div`
   }
 `;
 
-function SubscriberList() {
+function SubscriptionsList() {
   const [users, setUsers] = useState([]);
   const [searchUser, setSearchUser] = useState('');
   const [page, setPage] = useState(1);
@@ -36,7 +36,7 @@ function SubscriberList() {
     setUsersNotFound(false);
 
     // get list of subscriptions by search parameters
-    axios.get(`${BASE_URL}/v1/users/me/subscribers/?page=${page}&search=${searchUser}`)
+    axios.get(`${BASE_URL}/v1/users/me/subscriptions/?page=${page}&search=${searchUser}`)
       .then(res => {
         setUsers(res.data.results);
         setPagesCount(res.data.total_pages);
@@ -59,19 +59,19 @@ function SubscriberList() {
 
   return (
     <>
-      <h3 style={{textAlign: "center"}}>My subscribers</h3>
+      <h3 style={{textAlign: "center"}}>My subscriptions</h3>
       <form>
         <input className="form-control" type="search" placeholder="Search user" aria-label="Search" onChange={handleChangeSearch}></input>
       </form>
       <div>
         {usersNotFound
-          ? <p>Subscribers not found</p>
-          : <p>Find {totalProfiles} {totalProfiles === 1 ? 'subscriber' : 'subscribers'}</p>
+          ? <p>Subscriptions not found</p>
+          : <p>Find {totalProfiles} {totalProfiles === 1 ? 'subscription' : 'subscriptions'}</p>
         }
       </div>
-      <SubscribListContainer>
+      <SubscriptionsListContainer>
         <ListGroup variant="flush">
-          {users?.map((user, id) => <SubscriberCard key={id} user={user}/>)}
+          {users?.map((user, id) => <SubscriptionCard key={id} user={user}/>)}
         </ListGroup>
         {pagesCount > 1 &&
           <PaginationContainer>
@@ -84,9 +84,9 @@ function SubscriberList() {
             </Pagination>
           </PaginationContainer>
         }
-      </SubscribListContainer>
+      </SubscriptionsListContainer>
     </>
   )
 };
 
-export default SubscriberList;
+export default SubscriptionsList;

@@ -44,7 +44,7 @@ function MyAccount() {
       .catch(err => console.log(err));
   }, []);
 
-  const { avatar, nickname, name, surname, followers, subscribers } = user;
+  const { avatar, nickname, name, surname, followers, subscriptions } = user;
   const userName = name || surname ? `${name} ${surname}` : nickname;
 
   return (
@@ -55,7 +55,7 @@ function MyAccount() {
           <div style={{marginLeft: '30px'}}>
             <UserName>{userName}</UserName>
             <Card.Text>Followers: {followers}{followers > 0 && <LinkWrapper to='/followers/'> <FaLevelDownAlt /></LinkWrapper>}</Card.Text>
-            <Card.Text>Subscribers: {subscribers}{subscribers > 0 && <LinkWrapper to='/subscribers/'> <FaLevelDownAlt /></LinkWrapper>}</Card.Text>
+            <Card.Text>Subscriptions: {subscriptions}{subscriptions > 0 && <LinkWrapper to='/subscriptions/'> <FaLevelDownAlt /></LinkWrapper>}</Card.Text>
           </div>
         </UserDetails>
       </AccountContainer>

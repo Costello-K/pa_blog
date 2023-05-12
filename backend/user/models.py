@@ -17,7 +17,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     # username is equal to the value of the email field
     username = models.CharField(_('username'), max_length=255, unique=True)
     email = models.EmailField(_('email'), validators=[EmailValidator(message='Invalid Email')], unique=True)
-    phone = models.CharField(_('phone number'), validators=[phone_validator], max_length=25, blank=True, unique=True)
+    phone = models.CharField(_('phone number'), validators=[phone_validator],
+                             max_length=25, blank=True, null=True, unique=True)
     date_joined = models.DateTimeField(_('date joined'), auto_now_add=True)
     last_login = models.DateTimeField(_('last login'), blank=True, null=True)
     is_active = models.BooleanField(_('active'), default=False)
@@ -34,4 +35,3 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     class Meta:
         verbose_name = _('user')
         verbose_name_plural = _('users')
-        unique_together = ('username', 'email', 'phone')

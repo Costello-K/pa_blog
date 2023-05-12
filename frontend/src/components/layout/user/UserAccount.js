@@ -43,7 +43,7 @@ const ButtonEl = styled(Button)`
 function UserAccount() {
   const { id } = useParams();
   const [user, setUser] = useState({});
-  const { avatar, nickname, name, surname, followers, subscribers, subscribe, date_of_birth } = user;
+  const { avatar, nickname, name, surname, followers, subscriptions, subscribe, date_of_birth } = user;
   const userName = name || surname ? `${name} ${surname}` : nickname;
   const age = new Date().getFullYear() - new Date(date_of_birth).getFullYear();
 
@@ -70,7 +70,7 @@ function UserAccount() {
             <UserName>{userName}</UserName>
             {date_of_birth && <Card.Text>Age: {age}</Card.Text>}
             <Card.Text>Followers: {followers}</Card.Text>
-            <Card.Text>Subscribers: {subscribers}</Card.Text>
+            <Card.Text>Subscriptions: {subscriptions}</Card.Text>
           </div>
           {subscribe !== null &&
             <ButtonContainer>

@@ -34,9 +34,6 @@ DEBUG = bool(int(os.environ.get('DEBUG', default=1)))
 
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 
-# Domain that is added to emails
-FRONTEND_DOMAIN = os.environ.get("FRONTEND_HOST_PORT")
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -105,9 +102,6 @@ DATABASES = {
     }
 }
 
-# import dj_database_url
-# db = dj_database_url.config()
-# DATABASES['default'].update(db)
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -157,7 +151,9 @@ POST_MAX_SIZE_IMAGES_MB = 5
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -253,15 +249,8 @@ SWAGGER_SETTINGS = {
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000',
-    'http://localhost:3001',
-    'http://localhost:4001',
-    'http://localhost:8000',
-    'http://127.0.0.1:8000',
+    'http://ec2-3-73-97-113.eu-central-1.compute.amazonaws.com:3001',
     'http://127.0.0.1:3000',
-    'http://127.0.0.1:3001',
-    'http://127.0.0.1:4000',
-    'http://127.0.0.1:4001',
 ]
 CORS_ALLOW_METHODS = [
     'GET',

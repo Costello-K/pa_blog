@@ -17,14 +17,23 @@ User = get_user_model()
 
 class UserProfileCreateSerializer(serializers.ModelSerializer):
     """Serializer for creating a user Profile"""
+    nickname = serializers.CharField(required=False)
+
     class Meta:
         model = Profile
         fields = ('name', 'surname', 'nickname', 'date_of_birth', 'avatar', )
+
+    def validate_nickname(self, value):
+        """Nickname uniqueness check"""
+        if value and Profile.objects.filter(nickname=value).exists():
+            raise serializers.ValidationError('Nickname already exists')
+        return value
 
 
 class UserCreateSerializer(serializers.ModelSerializer):
     """Serializer for creating a new user"""
     profile = UserProfileCreateSerializer(required=False)
+    phone = serializers.CharField(required=False)
 
     class Meta:
         model = User
@@ -51,6 +60,12 @@ class UserCreateSerializer(serializers.ModelSerializer):
         Profile.objects.create(user=user, **profile)
 
         return user
+
+    def validate_phone(self, value):
+        """Phone uniqueness check"""
+        if value and User.objects.filter(phone=value).exists():
+            raise serializers.ValidationError('Phone already exists')
+        return value
 
 
 class IpSerializer(serializers.ModelSerializer):
@@ -100,14 +115,14 @@ class UserProfileListSerializer(serializers.ModelSerializer):
 
 class UserProfileSerializer(UserProfileListSerializer):
     """Serializer to get a user profile"""
-    subscribers = serializers.SerializerMethodField()
+    subscriptions = serializers.SerializerMethodField()
     subscribe = serializers.SerializerMethodField()
 
     class Meta(UserProfileListSerializer.Meta):
-        fields = ('id', 'avatar', 'name', 'surname', 'nickname', 'date_of_birth', 'followers', 'subscribers',
+        fields = ('id', 'avatar', 'name', 'surname', 'nickname', 'date_of_birth', 'followers', 'subscriptions',
                   'subscribe', )
 
-    def get_subscribers(self, user):
+    def get_subscriptions(self, user):
         return Profile.objects.filter(followers=user).count()
 
     def get_subscribe(self, user):
@@ -121,20 +136,20 @@ class UserProfileSerializer(UserProfileListSerializer):
 class MyProfileSerializer(UserProfileSerializer):
     """Serializer for getting and editing the profile of an authorized user"""
     avatar = serializers.ImageField(source='profile.avatar')
-    name = serializers.CharField(source='profile.name')
-    surname = serializers.CharField(source='profile.surname')
+    name = serializers.CharField(source='profile.name', allow_blank=True)
+    surname = serializers.CharField(source='profile.surname', allow_blank=True)
     nickname = serializers.CharField(source='profile.nickname')
     date_of_birth = serializers.DateField(source='profile.date_of_birth', allow_null=True)
 
     class Meta(UserProfileSerializer.Meta):
         fields = ('id', 'email', 'phone', 'avatar', 'name', 'surname', 'nickname', 'date_of_birth', 'followers',
-                  'subscribers', )
+                  'subscriptions', )
 
     def validate_nickname(self, value):
         """Nickname uniqueness check"""
         user = self.get_user()
         if Profile.objects.filter(nickname=value).exclude(user=user).exists():
-            raise serializers.ValidationError('Nickname already exists.')
+            raise serializers.ValidationError('Nickname already exists')
         return value
 
     def to_representation(self, instance):
@@ -160,11 +175,6 @@ class MyProfileSerializer(UserProfileSerializer):
             setattr(instance.profile, attr, value)
         instance.profile.save()
         return super().update(instance, validated_data)
-
-
-class Meta(UserProfileSerializer.Meta):
-    fields = ('id', 'email', 'phone', 'avatar', 'name', 'surname', 'nickname', 'date_of_birth', 'followers',
-              'subscribers',)
 
 
 class ReviewSerializer(serializers.ModelSerializer):

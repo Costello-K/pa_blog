@@ -34,7 +34,7 @@ const NavLinkWrapper = styled(Link)`
 const DropdownMenuWrapper = styled.div`
   position: absolute;
   right: 0;
-  zIndex: 10;
+  z-index: 10;
 `;
 
 function Header() {

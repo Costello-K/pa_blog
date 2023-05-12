@@ -7,7 +7,7 @@ urlpatterns = [
     path('users/me/avatar/', views.MyAvatarAPIView.as_view()),
     path('users/me/posts/', views.MyPostListAPIView.as_view()),
     path('users/me/followers/', views.MyFollowerListAPIView.as_view()),
-    path('users/me/subscribers/', views.MySubscriberListAPIView.as_view()),
+    path('users/me/subscriptions/', views.MySubscriptionsListAPIView.as_view()),
     path('users/me/', views.MyProfileAPIView.as_view()),
     path('followers/<int:pk>/', views.FollowerAPIView.as_view()),
     path('users/<int:pk>/', views.UserProfileAPIView.as_view()),

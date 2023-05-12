@@ -107,7 +107,7 @@ Deploying the application using Docker:
        SECRET_KEY=django-insecure-y%a54y456bm(srhrtyzeu)k20%s9fdFk)oonvlc9egwip3g@h+nb)=
        DEBUG=1
        DJANGO_ALLOWED_HOSTS=127.0.0.1
-       FRONTEND_HOST_PORT=127.0.0.1:4001
+       FRONTEND_HOST_PORT=127.0.0.1:3000
        DATABASE=postgres
        PSQL_DB=blog
        PSQL_ENGINE=django.db.backends.postgresql_psycopg2
@@ -140,7 +140,7 @@ Deploying the application using Docker:
        docker-compose up
 5) You can now open a web browser and see the application in action at the following address. For cookies to work correctly, use 127.0.0.1 instead of localhost
        
-       http://127.0.0.1:4001
+       http://127.0.0.1:3000
 
 License:
 

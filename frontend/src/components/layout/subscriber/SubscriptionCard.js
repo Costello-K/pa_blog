@@ -51,7 +51,7 @@ const LinkName = styled(Link)`
   }
 `;
 
-function SubscriberCard({ user }) {
+function SubscriptionCard({ user }) {
   const { id, avatar, nickname, name, surname, followers } = user;
   const userName = name || surname ? `${name} ${surname}` : nickname;
   const slug = nickname;
@@ -85,4 +85,4 @@ function SubscriberCard({ user }) {
   )
 };
 
-export default SubscriberCard;
+export default SubscriptionCard;
